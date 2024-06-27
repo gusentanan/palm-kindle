@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:palmkindle/themes/utils/color_swatch.dart';
+import 'package:palmkindle/themes/colors/color_swatch.dart';
 
 extension BaseColors on Color {
   static const Color primaryColor = PalmColorPalletes.cyanSwatch;

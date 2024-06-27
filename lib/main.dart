@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:palmkindle/themes/base_colors.dart';
 import 'package:palmkindle/themes/base_text_style.dart';
 import 'package:palmkindle/themes/palm_theme.dart';
-import 'package:palmkindle/utils/utility_function.dart';
+import 'package:palmkindle/utils/style_utils.dart';
 
 void main() async {
   await ScreenUtil.ensureScreenSize();
