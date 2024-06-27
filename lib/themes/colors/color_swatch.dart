@@ -14,17 +14,17 @@ class PalmColorPalletes {
     900: Color(0xff006064),
   });
 
-  static const MaterialColor blackSwatch = MaterialColor(0xff000000, {
-    50: Color(0xffE0E0E0),
-    100: Color(0xffB3B3B3),
-    200: Color(0xff808080),
-    300: Color(0xff4D4D4D),
-    400: Color(0xff262626),
-    500: Color(0xff000000),
-    600: Color(0xff000000),
-    700: Color(0xff000000),
-    800: Color(0xff000000),
-    900: Color(0xff000000),
+  static const MaterialColor blackSwatch = MaterialColor(0xFF111214, {
+    50: Color(0xFFE1E2E4),
+    100: Color(0xFFB3B5B8),
+    200: Color(0xFF808285),
+    300: Color(0xFF4D5052),
+    400: Color(0xFF26282A),
+    500: Color(0xFF111214),
+    600: Color(0xFF0F0F12),
+    700: Color(0xFF0C0C0E),
+    800: Color(0xFF09090B),
+    900: Color(0xFF050506),
   });
 
   static const MaterialColor neutralSwatch = MaterialColor(0xff898D8F, {
