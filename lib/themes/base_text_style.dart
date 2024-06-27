@@ -10,7 +10,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 57.sp,
     height: 64.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle displayMedium = TextStyle(
@@ -18,7 +18,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 45.sp,
     height: 52.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle displaySmall = TextStyle(
@@ -26,7 +26,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 36.sp,
     height: 44.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle headlineLarge = TextStyle(
@@ -34,7 +34,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 32.sp,
     height: 40.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle headlineMedium = TextStyle(
@@ -42,7 +42,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 28.sp,
     height: 36.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle headlineSmall = TextStyle(
@@ -50,7 +50,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 24.sp,
     height: 32.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle titleLarge = TextStyle(
@@ -58,7 +58,7 @@ extension BaseTextStyle on TextStyle {
     fontSize: 22.sp,
     height: 28.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle titleMedium = TextStyle(
@@ -67,7 +67,7 @@ extension BaseTextStyle on TextStyle {
     height: 24.sp,
     letterSpacing: 0.15.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle titleSmall = TextStyle(
@@ -76,7 +76,7 @@ extension BaseTextStyle on TextStyle {
     height: 20.sp,
     letterSpacing: 0.1.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle bodyLarge = TextStyle(
@@ -85,7 +85,7 @@ extension BaseTextStyle on TextStyle {
     height: 24.sp,
     letterSpacing: 0.15.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle bodyMedium = TextStyle(
@@ -94,7 +94,7 @@ extension BaseTextStyle on TextStyle {
     height: 20.sp,
     letterSpacing: 0.25.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle bodySmall = TextStyle(
@@ -103,7 +103,7 @@ extension BaseTextStyle on TextStyle {
     height: 20.sp,
     letterSpacing: 0.4.sp,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle labelLarge = TextStyle(
@@ -112,7 +112,7 @@ extension BaseTextStyle on TextStyle {
     height: 20.sp,
     letterSpacing: 0.1.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle labelMedium = TextStyle(
@@ -121,7 +121,7 @@ extension BaseTextStyle on TextStyle {
     height: 16.sp,
     letterSpacing: 0.5.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle labelSmall = TextStyle(
@@ -130,6 +130,6 @@ extension BaseTextStyle on TextStyle {
     height: 16.sp,
     letterSpacing: 0.1.sp,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: Colors.white,
   );
 }
