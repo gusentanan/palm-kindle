@@ -33,4 +33,7 @@ extension BaseColors on Color {
   static Color get bgError => PalmColorPalletes.redCustomSwatch.shade50;
   static Color get bgErrorConstrast =>
       PalmColorPalletes.redCustomSwatch.shade600;
+
+  static Color get dividerMuted =>
+      PalmColorPalletes.neutralSwatch.withOpacity(0.2);
 }
