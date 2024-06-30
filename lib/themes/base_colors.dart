@@ -16,7 +16,7 @@ extension BaseColors on Color {
   static Color get pmaDim => PalmColorPalletes.cyanSwatch.shade500;
   static Color get pmaBold => PalmColorPalletes.cyanSwatch.shade700;
   static Color get pmaStrong => PalmColorPalletes.cyanSwatch.shade800;
-  static Color get pmaIntense => const Color.fromARGB(255, 1, 65, 67);
+  static Color get pmaIntense => const Color.fromARGB(255, 1, 37, 38);
 
   /// --------------------
   /// Background Color (bg)

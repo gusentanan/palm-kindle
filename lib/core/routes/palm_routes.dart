@@ -8,5 +8,6 @@ class PalmRoutes extends $PalmRoutes {
     AutoRoute(page: CustomBottomNavigation.page, initial: true),
     AutoRoute(page: HomeRoute.page),
     AutoRoute(page: LikesRoute.page),
+    AutoRoute(page: DetailRoute.page),
   ];
 }

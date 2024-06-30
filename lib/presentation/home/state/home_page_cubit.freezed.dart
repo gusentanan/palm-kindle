@@ -19,6 +19,8 @@ mixin _$HomePageState {
   Option<Either<AppFailure, List<Results>>> get failureOrSucceedArticles =>
       throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  List<Results> get books => throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -33,7 +35,9 @@ abstract class $HomePageStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles,
-      bool isLoading});
+      bool isLoading,
+      List<Results> books,
+      int currentPage});
 }
 
 /// @nodoc
@@ -51,6 +55,8 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
   $Res call({
     Object? failureOrSucceedArticles = null,
     Object? isLoading = null,
+    Object? books = null,
+    Object? currentPage = null,
   }) {
     return _then(_value.copyWith(
       failureOrSucceedArticles: null == failureOrSucceedArticles
@@ -61,6 +67,14 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      books: null == books
+          ? _value.books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<Results>,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -75,7 +89,9 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles,
-      bool isLoading});
+      bool isLoading,
+      List<Results> books,
+      int currentPage});
 }
 
 /// @nodoc
@@ -91,6 +107,8 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? failureOrSucceedArticles = null,
     Object? isLoading = null,
+    Object? books = null,
+    Object? currentPage = null,
   }) {
     return _then(_$HomePageStateImpl(
       failureOrSucceedArticles: null == failureOrSucceedArticles
@@ -101,6 +119,14 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      books: null == books
+          ? _value._books
+          : books // ignore: cast_nullable_to_non_nullable
+              as List<Results>,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -109,17 +135,31 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
 
 class _$HomePageStateImpl extends _HomePageState {
   const _$HomePageStateImpl(
-      {required this.failureOrSucceedArticles, required this.isLoading})
-      : super._();
+      {required this.failureOrSucceedArticles,
+      required this.isLoading,
+      required final List<Results> books,
+      required this.currentPage})
+      : _books = books,
+        super._();
 
   @override
   final Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles;
   @override
   final bool isLoading;
+  final List<Results> _books;
+  @override
+  List<Results> get books {
+    if (_books is EqualUnmodifiableListView) return _books;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_books);
+  }
+
+  @override
+  final int currentPage;
 
   @override
   String toString() {
-    return 'HomePageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading)';
+    return 'HomePageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading, books: $books, currentPage: $currentPage)';
   }
 
   @override
@@ -131,12 +171,15 @@ class _$HomePageStateImpl extends _HomePageState {
                     other.failureOrSucceedArticles, failureOrSucceedArticles) ||
                 other.failureOrSucceedArticles == failureOrSucceedArticles) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            const DeepCollectionEquality().equals(other._books, _books) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, failureOrSucceedArticles, isLoading);
+  int get hashCode => Object.hash(runtimeType, failureOrSucceedArticles,
+      isLoading, const DeepCollectionEquality().hash(_books), currentPage);
 
   @JsonKey(ignore: true)
   @override
@@ -149,13 +192,19 @@ abstract class _HomePageState extends HomePageState {
   const factory _HomePageState(
       {required final Option<Either<AppFailure, List<Results>>>
           failureOrSucceedArticles,
-      required final bool isLoading}) = _$HomePageStateImpl;
+      required final bool isLoading,
+      required final List<Results> books,
+      required final int currentPage}) = _$HomePageStateImpl;
   const _HomePageState._() : super._();
 
   @override
   Option<Either<AppFailure, List<Results>>> get failureOrSucceedArticles;
   @override
   bool get isLoading;
+  @override
+  List<Results> get books;
+  @override
+  int get currentPage;
   @override
   @JsonKey(ignore: true)
   _$$HomePageStateImplCopyWith<_$HomePageStateImpl> get copyWith =>

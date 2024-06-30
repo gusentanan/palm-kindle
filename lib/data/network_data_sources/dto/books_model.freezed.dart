@@ -792,7 +792,7 @@ Formats _$FormatsFromJson(Map<String, dynamic> json) {
 mixin _$Formats {
   @JsonKey(name: 'image/jpeg')
   String? get imageJpeg => throw _privateConstructorUsedError;
-  @JsonKey(name: 'text/plain')
+  @JsonKey(name: 'text/plain; charset=us-ascii')
   String? get textPlain => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -807,7 +807,7 @@ abstract class $FormatsCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'image/jpeg') String? imageJpeg,
-      @JsonKey(name: 'text/plain') String? textPlain});
+      @JsonKey(name: 'text/plain; charset=us-ascii') String? textPlain});
 }
 
 /// @nodoc
@@ -848,7 +848,7 @@ abstract class _$$FormatsImplCopyWith<$Res> implements $FormatsCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'image/jpeg') String? imageJpeg,
-      @JsonKey(name: 'text/plain') String? textPlain});
+      @JsonKey(name: 'text/plain; charset=us-ascii') String? textPlain});
 }
 
 /// @nodoc
@@ -883,7 +883,7 @@ class __$$FormatsImplCopyWithImpl<$Res>
 class _$FormatsImpl implements _Formats {
   const _$FormatsImpl(
       {@JsonKey(name: 'image/jpeg') required this.imageJpeg,
-      @JsonKey(name: 'text/plain') required this.textPlain});
+      @JsonKey(name: 'text/plain; charset=us-ascii') required this.textPlain});
 
   factory _$FormatsImpl.fromJson(Map<String, dynamic> json) =>
       _$$FormatsImplFromJson(json);
@@ -892,7 +892,7 @@ class _$FormatsImpl implements _Formats {
   @JsonKey(name: 'image/jpeg')
   final String? imageJpeg;
   @override
-  @JsonKey(name: 'text/plain')
+  @JsonKey(name: 'text/plain; charset=us-ascii')
   final String? textPlain;
 
   @override
@@ -931,9 +931,9 @@ class _$FormatsImpl implements _Formats {
 
 abstract class _Formats implements Formats {
   const factory _Formats(
-          {@JsonKey(name: 'image/jpeg') required final String? imageJpeg,
-          @JsonKey(name: 'text/plain') required final String? textPlain}) =
-      _$FormatsImpl;
+      {@JsonKey(name: 'image/jpeg') required final String? imageJpeg,
+      @JsonKey(name: 'text/plain; charset=us-ascii')
+      required final String? textPlain}) = _$FormatsImpl;
 
   factory _Formats.fromJson(Map<String, dynamic> json) = _$FormatsImpl.fromJson;
 
@@ -941,7 +941,7 @@ abstract class _Formats implements Formats {
   @JsonKey(name: 'image/jpeg')
   String? get imageJpeg;
   @override
-  @JsonKey(name: 'text/plain')
+  @JsonKey(name: 'text/plain; charset=us-ascii')
   String? get textPlain;
   @override
   @JsonKey(ignore: true)

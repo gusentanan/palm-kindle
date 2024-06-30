@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:palmkindle/data/data_sources/api/exceptions.dart';
+import 'package:palmkindle/data/network_data_sources/api/exceptions.dart';
 
 class ApiConfiguration {
   const ApiConfiguration._();

@@ -18,6 +18,7 @@ abstract class RegisterModule {
   @singleton
   PalmRoutes get appRouter => PalmRoutes();
 
+  @Named('defaultDio')
   @lazySingleton
   Dio dio(Env env) {
     Dio dio = Dio();
@@ -27,6 +28,21 @@ abstract class RegisterModule {
       sendTimeout: const Duration(seconds: 6),
       headers: null,
       baseUrl: env.baseUrl,
+    );
+    dio.options = options;
+
+    return dio;
+  }
+
+  @Named('textDio')
+  @lazySingleton
+  Dio textDio() {
+    Dio dio = Dio();
+    BaseOptions options = BaseOptions(
+      connectTimeout: const Duration(seconds: 12),
+      receiveTimeout: const Duration(seconds: 20),
+      sendTimeout: const Duration(seconds: 6),
+      headers: null,
     );
     dio.options = options;
 

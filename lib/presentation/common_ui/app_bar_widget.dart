@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:palmkindle/themes/base_colors.dart';
 import 'package:palmkindle/themes/base_text_style.dart';
 
-// ignore: must_be_immutable
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   AppBarWidget({
     super.key,
@@ -21,13 +21,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      child: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        backgroundColor: BaseColors.bgCanvas,
-        leading: IconButton(
+    return AppBar(
+      elevation: 0,
+      centerTitle: true,
+      backgroundColor: BaseColors.bgMuted,
+      leading: Padding(
+        padding: EdgeInsets.only(left: 18.0.sp),
+        child: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
             color: BaseColors.pmaDim,
@@ -37,28 +37,35 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             onTapBackButton();
           },
         ),
-        title: Text(
-          text,
-          style: BaseTextStyle.headlineLarge,
+      ),
+      title: Text(
+        text,
+        style: BaseTextStyle.headlineLarge,
+      ),
+      actions: [
+        withTrailingIcon
+            ? IconButton(
+                icon: Icon(
+                  trailingIcon,
+                  color: BaseColors.pmaDim,
+                  size: 24,
+                ),
+                onPressed: () {
+                  onTapTrailingIcon!();
+                },
+              )
+            : const SizedBox.shrink()
+      ],
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(0.sp),
+        child: Divider(
+          height: 1.0,
+          color: BaseColors.dividerMuted,
         ),
-        actions: [
-          withTrailingIcon
-              ? IconButton(
-                  icon: Icon(
-                    trailingIcon,
-                    color: BaseColors.pmaDim,
-                    size: 24,
-                  ),
-                  onPressed: () {
-                    onTapTrailingIcon!();
-                  },
-                )
-              : const SizedBox.shrink()
-        ],
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => Size.fromHeight(158.sp);
 }

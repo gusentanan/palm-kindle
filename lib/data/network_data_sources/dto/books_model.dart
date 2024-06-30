@@ -51,7 +51,7 @@ class Authors with _$Authors {
 class Formats with _$Formats {
   const factory Formats({
     @JsonKey(name: 'image/jpeg') required String? imageJpeg,
-    @JsonKey(name: 'text/plain') required String? textPlain,
+    @JsonKey(name: 'text/plain; charset=us-ascii') required String? textPlain,
   }) = _Formats;
 
   factory Formats.fromJson(Map<String, dynamic> json) =>

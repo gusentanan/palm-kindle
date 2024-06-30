@@ -79,11 +79,11 @@ Map<String, dynamic> _$$AuthorsImplToJson(_$AuthorsImpl instance) =>
 _$FormatsImpl _$$FormatsImplFromJson(Map<String, dynamic> json) =>
     _$FormatsImpl(
       imageJpeg: json['image/jpeg'] as String?,
-      textPlain: json['text/plain'] as String?,
+      textPlain: json['text/plain; charset=us-ascii'] as String?,
     );
 
 Map<String, dynamic> _$$FormatsImplToJson(_$FormatsImpl instance) =>
     <String, dynamic>{
       'image/jpeg': instance.imageJpeg,
-      'text/plain': instance.textPlain,
+      'text/plain; charset=us-ascii': instance.textPlain,
     };

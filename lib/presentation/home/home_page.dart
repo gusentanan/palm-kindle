@@ -2,21 +2,47 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:palmkindle/core/injections/injections.dart';
+import 'package:palmkindle/core/routes/palm_routes.gr.dart';
 import 'package:palmkindle/presentation/common_ui/book_card_widget.dart';
 import 'package:palmkindle/presentation/home/state/home_page_cubit.dart';
 import 'package:palmkindle/themes/base_colors.dart';
 import 'package:palmkindle/themes/base_text_style.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:palmkindle/utils/mapper.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      // Fetch next page when reaching the end of the list
+      getIt<HomePageCubit>().loadNextPage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,9 +55,11 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(left: 18.0.sp),
               child: Row(
                 children: [
-                  Text('Palm',
-                      style: BaseTextStyle.displayLarge
-                          .copyWith(color: BaseColors.pmaDim)),
+                  Text(
+                    'Palm',
+                    style: BaseTextStyle.displayLarge
+                        .copyWith(color: BaseColors.pmaDim),
+                  ),
                   Text(
                     'Kindle',
                     style: BaseTextStyle.displayLarge,
@@ -55,33 +83,52 @@ class _HomePageState extends State<HomePage> {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      BlocBuilder<HomePageCubit, HomePageState>(
-                          builder: (context, state) {
-                        return state.failureOrSucceedArticles.fold(
-                          () => state.isLoading
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: BaseColors.primaryColor,
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                          (response) => response.fold(
-                            (failure) => failure.when(
-                              fromServerSide: (error) => Text(error),
+                child: BlocBuilder<HomePageCubit, HomePageState>(
+                  builder: (context, state) {
+                    return state.failureOrSucceedArticles.fold(
+                      () => state.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: BaseColors.primaryColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      (response) => response.fold(
+                        (failure) => Center(
+                          child: Text(failure.toString()), // Show error message
+                        ),
+                        (books) => Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                controller: _scrollController,
+                                itemCount: books.length,
+                                itemBuilder: (context, index) {
+                                  final data = books[index];
+                                  final bookDetail = Mapper()
+                                      .mapResultsToBookDetailModel(data);
+                                  return BookCard(
+                                    data: data,
+                                    onTap: () {
+                                      AutoRouter.of(context)
+                                          .push(DetailRoute(data: bookDetail));
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                            (books) => Column(
-                                children: List.generate(books.length, (index) {
-                              final data = books[index];
-                              return BookCard(data: data);
-                            })),
-                          ),
-                        );
-                      }),
-                    ],
-                  ),
+                            if (state.isLoading)
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(
+                                  color: BaseColors.primaryColor,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
