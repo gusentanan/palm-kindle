@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:palmkindle/core/injections/injections.dart';
+import 'package:palmkindle/data/local_data_sources/entity/book_entity.dart';
 import 'package:palmkindle/domain/model/book_detail_model.dart';
 import 'package:palmkindle/presentation/common_ui/app_bar_widget.dart';
 import 'package:palmkindle/presentation/common_ui/author_chip_widget.dart';
@@ -42,7 +43,47 @@ class _DetailPageState extends State<DetailPage> {
           onTapBackButton: () {
             context.router.maybePop();
           },
-          withTrailingIcon: false,
+          withTrailingIcon: true,
+          trailingIcon: _cubit.state.isStoredLocally
+              ? Icons.favorite_rounded
+              : Icons.favorite_border_rounded,
+          onTapTrailingIcon: () async {
+            if (_cubit.state.isStoredLocally) {
+              // TODO: implement delete/dislike book
+            } else {
+              final book = Book(
+                title: widget.data.title!,
+                author: widget.data.authors!,
+                birthYear: widget.data.birthYear!,
+                deathYear: widget.data.deathYear!,
+                imageUrl: widget.data.imgJpeg!,
+                subjects: widget.data.subjects!.first,
+                textUrl: widget.data.textPlain!,
+              );
+              try {
+                await _cubit.addToDatabase(book);
+                setState(() {});
+                final currentContext =
+                    context; // Capture context before async call
+
+                if (mounted) {
+                  ScaffoldMessenger.of(currentContext).showSnackBar(
+                    const SnackBar(content: Text('Book added to favorites')),
+                  );
+                }
+              } catch (e) {
+                final currentContext =
+                    context; // Capture context before async call
+
+                if (mounted) {
+                  ScaffoldMessenger.of(currentContext).showSnackBar(
+                    const SnackBar(content: Text('Failed to add book')),
+                  );
+                }
+                print('Failed to add book: $e');
+              }
+            }
+          },
         ),
         body: SingleChildScrollView(
           child: Container(

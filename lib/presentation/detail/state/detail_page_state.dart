@@ -7,11 +7,13 @@ class DetailPageState with _$DetailPageState {
   const factory DetailPageState({
     required Option<Either<AppFailure, String>> failureOrSucceedArticles,
     required bool isLoading,
+    required bool isStoredLocally,
   }) = _DetailPageState;
 
   factory DetailPageState.initial() => DetailPageState(
         failureOrSucceedArticles: none(),
         isLoading: false,
+        isStoredLocally: false, // Initialize with false
       );
 
   DetailPageState get unmodified => copyWith(

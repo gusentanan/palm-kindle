@@ -19,6 +19,7 @@ mixin _$DetailPageState {
   Option<Either<AppFailure, String>> get failureOrSucceedArticles =>
       throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isStoredLocally => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DetailPageStateCopyWith<DetailPageState> get copyWith =>
@@ -33,7 +34,8 @@ abstract class $DetailPageStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Option<Either<AppFailure, String>> failureOrSucceedArticles,
-      bool isLoading});
+      bool isLoading,
+      bool isStoredLocally});
 }
 
 /// @nodoc
@@ -51,6 +53,7 @@ class _$DetailPageStateCopyWithImpl<$Res, $Val extends DetailPageState>
   $Res call({
     Object? failureOrSucceedArticles = null,
     Object? isLoading = null,
+    Object? isStoredLocally = null,
   }) {
     return _then(_value.copyWith(
       failureOrSucceedArticles: null == failureOrSucceedArticles
@@ -60,6 +63,10 @@ class _$DetailPageStateCopyWithImpl<$Res, $Val extends DetailPageState>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isStoredLocally: null == isStoredLocally
+          ? _value.isStoredLocally
+          : isStoredLocally // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -75,7 +82,8 @@ abstract class _$$DetailPageStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Option<Either<AppFailure, String>> failureOrSucceedArticles,
-      bool isLoading});
+      bool isLoading,
+      bool isStoredLocally});
 }
 
 /// @nodoc
@@ -91,6 +99,7 @@ class __$$DetailPageStateImplCopyWithImpl<$Res>
   $Res call({
     Object? failureOrSucceedArticles = null,
     Object? isLoading = null,
+    Object? isStoredLocally = null,
   }) {
     return _then(_$DetailPageStateImpl(
       failureOrSucceedArticles: null == failureOrSucceedArticles
@@ -101,6 +110,10 @@ class __$$DetailPageStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isStoredLocally: null == isStoredLocally
+          ? _value.isStoredLocally
+          : isStoredLocally // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -109,17 +122,21 @@ class __$$DetailPageStateImplCopyWithImpl<$Res>
 
 class _$DetailPageStateImpl extends _DetailPageState {
   const _$DetailPageStateImpl(
-      {required this.failureOrSucceedArticles, required this.isLoading})
+      {required this.failureOrSucceedArticles,
+      required this.isLoading,
+      required this.isStoredLocally})
       : super._();
 
   @override
   final Option<Either<AppFailure, String>> failureOrSucceedArticles;
   @override
   final bool isLoading;
+  @override
+  final bool isStoredLocally;
 
   @override
   String toString() {
-    return 'DetailPageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading)';
+    return 'DetailPageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading, isStoredLocally: $isStoredLocally)';
   }
 
   @override
@@ -131,12 +148,14 @@ class _$DetailPageStateImpl extends _DetailPageState {
                     other.failureOrSucceedArticles, failureOrSucceedArticles) ||
                 other.failureOrSucceedArticles == failureOrSucceedArticles) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading));
+                other.isLoading == isLoading) &&
+            (identical(other.isStoredLocally, isStoredLocally) ||
+                other.isStoredLocally == isStoredLocally));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, failureOrSucceedArticles, isLoading);
+  int get hashCode => Object.hash(
+      runtimeType, failureOrSucceedArticles, isLoading, isStoredLocally);
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +169,16 @@ abstract class _DetailPageState extends DetailPageState {
   const factory _DetailPageState(
       {required final Option<Either<AppFailure, String>>
           failureOrSucceedArticles,
-      required final bool isLoading}) = _$DetailPageStateImpl;
+      required final bool isLoading,
+      required final bool isStoredLocally}) = _$DetailPageStateImpl;
   const _DetailPageState._() : super._();
 
   @override
   Option<Either<AppFailure, String>> get failureOrSucceedArticles;
   @override
   bool get isLoading;
+  @override
+  bool get isStoredLocally;
   @override
   @JsonKey(ignore: true)
   _$$DetailPageStateImplCopyWith<_$DetailPageStateImpl> get copyWith =>

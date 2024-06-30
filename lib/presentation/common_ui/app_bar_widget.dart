@@ -44,15 +44,18 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         withTrailingIcon
-            ? IconButton(
-                icon: Icon(
-                  trailingIcon,
-                  color: BaseColors.pmaDim,
-                  size: 24,
+            ? Padding(
+                padding: EdgeInsets.only(right: 40.0.sp),
+                child: IconButton(
+                  icon: Icon(
+                    trailingIcon,
+                    color: BaseColors.pmaDim,
+                    size: 24,
+                  ),
+                  onPressed: () {
+                    onTapTrailingIcon!();
+                  },
                 ),
-                onPressed: () {
-                  onTapTrailingIcon!();
-                },
               )
             : const SizedBox.shrink()
       ],

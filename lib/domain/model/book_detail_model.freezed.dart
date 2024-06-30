@@ -19,8 +19,8 @@ mixin _$BookDetailModel {
   int get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get authors => throw _privateConstructorUsedError;
-  String? get birthYear => throw _privateConstructorUsedError;
-  String? get deathYear => throw _privateConstructorUsedError;
+  int? get birthYear => throw _privateConstructorUsedError;
+  int? get deathYear => throw _privateConstructorUsedError;
   List<String>? get subjects => throw _privateConstructorUsedError;
   List<String>? get bookshelves => throw _privateConstructorUsedError;
   List<String>? get languages => throw _privateConstructorUsedError;
@@ -44,8 +44,8 @@ abstract class $BookDetailModelCopyWith<$Res> {
       {int id,
       String? title,
       String? authors,
-      String? birthYear,
-      String? deathYear,
+      int? birthYear,
+      int? deathYear,
       List<String>? subjects,
       List<String>? bookshelves,
       List<String>? languages,
@@ -97,11 +97,11 @@ class _$BookDetailModelCopyWithImpl<$Res, $Val extends BookDetailModel>
       birthYear: freezed == birthYear
           ? _value.birthYear
           : birthYear // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       deathYear: freezed == deathYear
           ? _value.deathYear
           : deathYear // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       subjects: freezed == subjects
           ? _value.subjects
           : subjects // ignore: cast_nullable_to_non_nullable
@@ -146,8 +146,8 @@ abstract class _$$BookDetailModelImplCopyWith<$Res>
       {int id,
       String? title,
       String? authors,
-      String? birthYear,
-      String? deathYear,
+      int? birthYear,
+      int? deathYear,
       List<String>? subjects,
       List<String>? bookshelves,
       List<String>? languages,
@@ -197,11 +197,11 @@ class __$$BookDetailModelImplCopyWithImpl<$Res>
       birthYear: freezed == birthYear
           ? _value.birthYear
           : birthYear // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       deathYear: freezed == deathYear
           ? _value.deathYear
           : deathYear // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       subjects: freezed == subjects
           ? _value._subjects
           : subjects // ignore: cast_nullable_to_non_nullable
@@ -261,9 +261,9 @@ class _$BookDetailModelImpl implements _BookDetailModel {
   @override
   final String? authors;
   @override
-  final String? birthYear;
+  final int? birthYear;
   @override
-  final String? deathYear;
+  final int? deathYear;
   final List<String>? _subjects;
   @override
   List<String>? get subjects {
@@ -363,8 +363,8 @@ abstract class _BookDetailModel implements BookDetailModel {
       {required final int id,
       required final String? title,
       required final String? authors,
-      required final String? birthYear,
-      required final String? deathYear,
+      required final int? birthYear,
+      required final int? deathYear,
       required final List<String>? subjects,
       required final List<String>? bookshelves,
       required final List<String>? languages,
@@ -380,9 +380,9 @@ abstract class _BookDetailModel implements BookDetailModel {
   @override
   String? get authors;
   @override
-  String? get birthYear;
+  int? get birthYear;
   @override
-  String? get deathYear;
+  int? get deathYear;
   @override
   List<String>? get subjects;
   @override
