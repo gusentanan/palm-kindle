@@ -42,9 +42,9 @@ class _HomePageState extends State<HomePage> {
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: 54.0.sp),
-                child: Icon(
+                child: const Icon(
                   Icons.search_outlined,
-                  color: BaseColors.pmaMuted,
+                  color: BaseColors.primaryColor,
                   size: 24,
                 ),
               )

@@ -39,7 +39,7 @@ class BookCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
                       child: Text(
                         '${data.authors!.first.birthYear} \t - \t ${data.authors!.first.deathYear}',
-                        style: BaseTextStyle.headlineMedium
+                        style: BaseTextStyle.headlineLarge
                             .copyWith(color: BaseColors.neutralColor),
                       ),
                     ),
@@ -56,6 +56,7 @@ class BookCard extends StatelessWidget {
                   height: 120,
                   data.formats!.imageJpeg!,
                   fit: BoxFit.cover,
+                  //TODO: Add proper assets to handle error image
                   errorBuilder: (context, error, stackTrace) => Image.asset(
                     'assets/images/empty.jpg',
                     width: 80,

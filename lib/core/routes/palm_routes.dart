@@ -5,6 +5,8 @@ import 'package:palmkindle/core/routes/palm_routes.gr.dart';
 class PalmRoutes extends $PalmRoutes {
   @override
   List<AutoRoute> routes = [
-    AutoRoute(page: HomeRoute.page, initial: true),
+    AutoRoute(page: CustomBottomNavigation.page, initial: true),
+    AutoRoute(page: HomeRoute.page),
+    AutoRoute(page: LikesRoute.page),
   ];
 }
