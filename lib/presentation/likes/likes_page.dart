@@ -20,7 +20,7 @@ class LikesPage extends StatefulWidget {
   State<StatefulWidget> createState() => _LikesPageState();
 }
 
-class _LikesPageState extends State<LikesPage> {
+class _LikesPageState extends State<LikesPage> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -57,9 +57,12 @@ class _LikesPageState extends State<LikesPage> {
                             Mapper().mapBookToBookDetailModel(book);
                         return BookCard(
                           data: data,
-                          onTap: () {
-                            AutoRouter.of(context)
+                          onTap: () async {
+                            final result = await context.router
                                 .push(DetailRoute(data: bookDetail));
+                            if (result == true) {
+                              setState(() {});
+                            }
                           },
                         );
                       },

@@ -70,6 +70,7 @@ class _DetailPageState extends State<DetailPage> {
                         const SnackBar(
                             content: Text('Book removed from favorites')),
                       );
+                      setState(() {});
                     } catch (e) {
                       print('Failed to delete a book: $e');
                     }
@@ -91,6 +92,7 @@ class _DetailPageState extends State<DetailPage> {
                         const SnackBar(
                             content: Text('Book added to favorites')),
                       );
+                      setState(() {});
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Failed to add book')),
