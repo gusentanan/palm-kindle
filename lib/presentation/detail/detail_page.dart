@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:palmkindle/core/injections/injections.dart';
 import 'package:palmkindle/data/local_data_sources/entity/book_entity.dart';
 import 'package:palmkindle/domain/model/book_detail_model.dart';
-import 'package:palmkindle/presentation/common_ui/app_bar_widget.dart';
 import 'package:palmkindle/presentation/common_ui/author_chip_widget.dart';
 import 'package:palmkindle/presentation/common_ui/subject_chip_widget.dart';
 import 'package:palmkindle/presentation/detail/state/detail_page_cubit.dart';
@@ -29,7 +28,7 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     super.initState();
     _cubit = getIt<DetailPageCubit>();
-    _cubit.init(widget.data.textPlain!);
+    _cubit.init(widget.data.textPlain!, widget.data.title!);
   }
 
   @override
@@ -38,52 +37,70 @@ class _DetailPageState extends State<DetailPage> {
       create: (context) => _cubit,
       child: Scaffold(
         backgroundColor: BaseColors.bgCanvas,
-        appBar: AppBarWidget(
-          text: '',
-          onTapBackButton: () {
-            context.router.maybePop();
-          },
-          withTrailingIcon: true,
-          trailingIcon: _cubit.state.isStoredLocally
-              ? Icons.favorite_rounded
-              : Icons.favorite_border_rounded,
-          onTapTrailingIcon: () async {
-            if (_cubit.state.isStoredLocally) {
-              // TODO: implement delete/dislike book
-            } else {
-              final book = Book(
-                title: widget.data.title!,
-                author: widget.data.authors!,
-                birthYear: widget.data.birthYear!,
-                deathYear: widget.data.deathYear!,
-                imageUrl: widget.data.imgJpeg!,
-                subjects: widget.data.subjects!.first,
-                textUrl: widget.data.textPlain!,
-              );
-              try {
-                await _cubit.addToDatabase(book);
-                setState(() {});
-                final currentContext =
-                    context; // Capture context before async call
+        appBar: AppBar(
+          title: const Text(''),
+          leading: Padding(
+            padding: EdgeInsets.only(left: 18.0.sp),
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: BaseColors.primaryColor,
+              ),
+              onPressed: () {
+                context.router.maybePop();
+              },
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 54.0.sp),
+              child: IconButton(
+                icon: Icon(
+                  _cubit.state.isStoredLocally
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_rounded,
+                  color: BaseColors.primaryColor,
+                ),
+                onPressed: () async {
+                  if (_cubit.state.isStoredLocally) {
+                    try {
+                      await _cubit.deleteFromDatabase(widget.data.id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Book removed from favorites')),
+                      );
+                    } catch (e) {
+                      print('Failed to delete a book: $e');
+                    }
+                  } else {
+                    final book = Book(
+                      title: widget.data.title!,
+                      author: widget.data.authors!,
+                      birthYear: widget.data.birthYear!,
+                      deathYear: widget.data.deathYear!,
+                      imageUrl: widget.data.imgJpeg!,
+                      subjects: widget.data.subjects!,
+                      textUrl: widget.data.textPlain!,
+                    );
+                    try {
+                      await _cubit.addToDatabase(book);
+                      _cubit.checkIfStoredLocally(widget.data.title!);
 
-                if (mounted) {
-                  ScaffoldMessenger.of(currentContext).showSnackBar(
-                    const SnackBar(content: Text('Book added to favorites')),
-                  );
-                }
-              } catch (e) {
-                final currentContext =
-                    context; // Capture context before async call
-
-                if (mounted) {
-                  ScaffoldMessenger.of(currentContext).showSnackBar(
-                    const SnackBar(content: Text('Failed to add book')),
-                  );
-                }
-                print('Failed to add book: $e');
-              }
-            }
-          },
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Book added to favorites')),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Failed to add book')),
+                      );
+                      print('Failed to add book: $e');
+                    }
+                  }
+                },
+              ),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Container(

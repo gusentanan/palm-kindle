@@ -6,7 +6,6 @@ import 'package:palmkindle/core/routes/palm_routes.gr.dart';
 import 'package:palmkindle/data/local_data_sources/entity/book_entity.dart';
 import 'package:palmkindle/data/network_data_sources/dto/books_model.dart';
 import 'package:palmkindle/domain/model/book_detail_model.dart';
-import 'package:palmkindle/presentation/common_ui/app_bar_widget.dart';
 import 'package:palmkindle/presentation/common_ui/book_card_widget.dart';
 import 'package:palmkindle/presentation/likes/state/likes_page_cubit.dart';
 import 'package:palmkindle/themes/base_colors.dart';
@@ -36,29 +35,47 @@ class _LikesPageState extends State<LikesPage> {
             style: BaseTextStyle.displayLarge,
           ),
         ),
-        body: BlocBuilder<LikesPageCubit, LikesPageState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return ListView.builder(
-                itemCount: state.likedBooks.length,
-                itemBuilder: (context, index) {
-                  final Book book = state.likedBooks[index];
-                  final Results data = Mapper().mapBookToResults(book);
-                  final BookDetailModel bookDetail =
-                      Mapper().mapBookToBookDetailModel(book);
-                  return BookCard(
-                    data: data,
-                    onTap: () {
-                      AutoRouter.of(context)
-                          .push(DetailRoute(data: bookDetail));
-                    },
-                  );
+        body: Container(
+          color: BaseColors.bgCanvas,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: BlocBuilder<LikesPageCubit, LikesPageState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: BaseColors.primaryColor,
+                    ));
+                  } else if (state.likedBooks.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: state.likedBooks.length,
+                      itemBuilder: (context, index) {
+                        final Book book = state.likedBooks[index];
+                        final Results data = Mapper().mapBookToResults(book);
+                        final BookDetailModel bookDetail =
+                            Mapper().mapBookToBookDetailModel(book);
+                        return BookCard(
+                          data: data,
+                          onTap: () {
+                            AutoRouter.of(context)
+                                .push(DetailRoute(data: bookDetail));
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Text(
+                        "Your liked books will appear here.",
+                        style: BaseTextStyle.displayLarge,
+                      ),
+                    );
+                  }
                 },
-              );
-            }
-          },
+              ),
+            ),
+          ),
         ),
       ),
     );

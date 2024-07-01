@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,7 +17,8 @@ class DetailPageCubit extends Cubit<DetailPageState> {
 
   DetailPageCubit(this._palmRepository) : super(DetailPageState.initial());
 
-  void init(String url) {
+  void init(String url, String title) {
+    checkIfStoredLocally(title);
     getTextBook(url);
   }
 
@@ -31,20 +34,26 @@ class DetailPageCubit extends Cubit<DetailPageState> {
   Future<void> addToDatabase(Book book) async {
     try {
       await _palmRepository.addBookToDatabase(book);
-      emit(state.copyWith(
-          isStoredLocally: true)); // Update state to reflect local storage
+      emit(state.copyWith(isStoredLocally: true));
     } catch (e) {
-      // Handle error if needed
       print('Error adding book to database: $e');
     }
   }
 
-  void checkIfStoredLocally(String url) async {
+  Future<void> deleteFromDatabase(int id) async {
     try {
-      final isStored = await _palmRepository.isBookStoredLocally(url);
+      await _palmRepository.deleteBookFromDatabase(id);
+      emit(state.copyWith(isStoredLocally: false));
+    } catch (e) {
+      print('Error adding book to database: $e');
+    }
+  }
+
+  void checkIfStoredLocally(String title) async {
+    try {
+      final isStored = await _palmRepository.isBookStoredLocally(title);
       emit(state.copyWith(isStoredLocally: isStored));
     } catch (e) {
-      // Handle error if needed
       print('Error checking if stored locally: $e');
     }
   }

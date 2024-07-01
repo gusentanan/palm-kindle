@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Book {
   final int? id;
   final String title;
@@ -5,7 +7,7 @@ class Book {
   final int birthYear;
   final int deathYear;
   final String imageUrl;
-  final String subjects;
+  final List<String> subjects;
   final String textUrl;
 
   Book({
@@ -26,8 +28,22 @@ class Book {
       'birthYear': birthYear,
       'deathYear': deathYear,
       'imageUrl': imageUrl,
-      'subjects': subjects,
+      'subjects': jsonEncode(subjects),
       'textUrl': textUrl,
     };
+  }
+
+  factory Book.fromMap(Map<String, dynamic> map) {
+    return Book(
+      id: map['id'],
+      title: map['title'],
+      author: map['author'],
+      birthYear: map['birthYear'],
+      deathYear: map['deathYear'],
+      imageUrl: map['imageUrl'],
+      subjects: List<String>.from(
+          jsonDecode(map['subjects'])), // Convert JSON string to list
+      textUrl: map['textUrl'],
+    );
   }
 }

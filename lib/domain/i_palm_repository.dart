@@ -10,6 +10,7 @@ abstract class IPalmRepository {
 
   // Local
   Future<void> addBookToDatabase(Book book);
+  Future<void> deleteBookFromDatabase(int id);
   Future<List<Book>> getAllBooksFromDatabase();
-  Future<bool> isBookStoredLocally(String url);
+  Future<bool> isBookStoredLocally(String title);
 }

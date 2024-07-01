@@ -17,25 +17,21 @@ class LocalDataSource {
     final db = await _databaseHelper.database;
     final List<Map<String, dynamic>> maps = await db.query('books');
     return List.generate(maps.length, (i) {
-      return Book(
-        id: maps[i]['id'],
-        title: maps[i]['title'],
-        author: maps[i]['author'],
-        birthYear: maps[i]['birthYear'],
-        deathYear: maps[i]['deathYear'],
-        imageUrl: maps[i]['imageUrl'],
-        subjects: maps[i]['subjects'],
-        textUrl: maps[i]['textUrl'],
-      );
+      return Book.fromMap(maps[i]);
     });
   }
 
-  Future<bool> isBookStoredLocally(String url) async {
+  Future<void> deleteBook(int id) async {
+    final db = await _databaseHelper.database;
+    await db.delete('books', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<bool> isBookStoredLocally(String title) async {
     final db = await _databaseHelper.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'books',
-      where: 'imageUrl = ?',
-      whereArgs: [url],
+      where: 'title = ?',
+      whereArgs: [title],
     );
     return maps.isNotEmpty;
   }

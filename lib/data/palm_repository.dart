@@ -57,9 +57,18 @@ class PalmRepository implements IPalmRepository {
   }
 
   @override
-  Future<bool> isBookStoredLocally(String url) async {
+  Future<bool> isBookStoredLocally(String title) async {
     try {
-      return await _localDataSource.isBookStoredLocally(url);
+      return await _localDataSource.isBookStoredLocally(title);
+    } catch (e) {
+      throw AppFailure.fromServerSide(e.toString());
+    }
+  }
+
+  @override
+  Future<void> deleteBookFromDatabase(int id) async {
+    try {
+      return await _localDataSource.deleteBook(id);
     } catch (e) {
       throw AppFailure.fromServerSide(e.toString());
     }

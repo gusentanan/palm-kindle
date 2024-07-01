@@ -32,51 +32,50 @@ class Mapper {
     );
   }
 
+  // All empty/null properties are because they are not needed in the UI.
+  // Further adjustments will be made in the future.
   BookDetailModel mapBookToBookDetailModel(Book book) {
-    List<String>? subjects = book.subjects.split(', ').toList();
-
     return BookDetailModel(
       id: book.id ?? 0,
       title: book.title,
       authors: book.author,
       birthYear: book.birthYear,
       deathYear: book.deathYear,
-      subjects: subjects,
-      bookshelves: [], // Assuming empty for now, adjust as needed
-      languages: [], // Assuming empty for now, adjust as needed
-      copyright: null, // Assuming null for now, adjust as needed
+      subjects: book.subjects,
+      bookshelves: [],
+      languages: [],
+      copyright: null,
       imgJpeg: book.imageUrl,
       textPlain: book.textUrl,
-      downloadCount: null, // Assuming null for now, adjust as needed
+      downloadCount: null,
     );
   }
 
+// Mapper to convert Book to Results
   Results mapBookToResults(Book book) {
-    // Assuming subjects are stored as a comma-separated string in Book and need to be split into a list
-    List<String> subjects = book.subjects.split(', ');
-
-    // Assuming author is a single string in Book and needs to be converted to an Author object
     Authors author = Authors(
       name: book.author,
       birthYear: book.birthYear,
       deathYear: book.deathYear,
     );
 
-    // Assuming formats are extracted from the Book fields
     Formats formats = Formats(
       imageJpeg: book.imageUrl,
       textPlain: book.textUrl,
     );
 
+    // Further adjustments will be made in the future.
     return Results(
-      id: book.id ?? 0, // Default to 0 if id is null
+      id: book.id ?? 0,
       title: book.title,
-      authors: [author], // Assuming only one author for simplicity
-      subjects: subjects,
+      authors: [author],
+      subjects: book.subjects,
       formats: formats,
-      copyright: false, // Assuming false for now, adjust as needed
-      downloadCount: 0, bookshelves: [], languages: [],
-      mediaType: '', // Assuming 0 for now, adjust as needed
+      copyright: false,
+      downloadCount: 0,
+      bookshelves: [],
+      languages: [],
+      mediaType: '',
     );
   }
 }
