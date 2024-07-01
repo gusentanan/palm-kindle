@@ -37,6 +37,16 @@ class PalmRepository implements IPalmRepository {
     }
   }
 
+  @override
+  Future<Either<AppFailure, List<Results>>> searchBooks(String query) async {
+    try {
+      final response = await _networkDataSource.searchBooks(query);
+      return right(response.results); // Assuming results is a List<Results>
+    } catch (e) {
+      return left(AppFailure.fromServerSide(e.toString()));
+    }
+  }
+
   // Local
   @override
   Future<void> addBookToDatabase(Book book) async {

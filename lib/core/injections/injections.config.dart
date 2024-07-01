@@ -14,7 +14,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:logger/logger.dart' as _i5;
 import 'package:palmkindle/core/env/env.dart' as _i3;
 import 'package:palmkindle/core/routes/palm_routes.dart' as _i4;
-import 'package:palmkindle/core/utils/register_module.dart' as _i16;
+import 'package:palmkindle/core/utils/register_module.dart' as _i17;
 import 'package:palmkindle/data/local_data_sources/db/db_helper.dart' as _i6;
 import 'package:palmkindle/data/local_data_sources/local_data_sources.dart'
     as _i8;
@@ -30,6 +30,8 @@ import 'package:palmkindle/presentation/home/state/home_page_cubit.dart'
     as _i14;
 import 'package:palmkindle/presentation/likes/state/likes_page_cubit.dart'
     as _i15;
+import 'package:palmkindle/presentation/search/state/search_page_cubit.dart'
+    as _i16;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -75,8 +77,10 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i14.HomePageCubit(gh<_i11.IPalmRepository>()));
     gh.factory<_i15.LikesPageCubit>(
         () => _i15.LikesPageCubit(gh<_i11.IPalmRepository>()));
+    gh.factory<_i16.SearchPageCubit>(
+        () => _i16.SearchPageCubit(gh<_i11.IPalmRepository>()));
     return this;
   }
 }
 
-class _$RegisterModule extends _i16.RegisterModule {}
+class _$RegisterModule extends _i17.RegisterModule {}

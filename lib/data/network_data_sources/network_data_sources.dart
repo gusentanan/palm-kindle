@@ -32,4 +32,13 @@ class NetworkDataSource {
       return Future.error(ApiResponseNotValidException());
     }
   }
+
+  Future<BooksModel> searchBooks(String query) async {
+    final response = await _dio.get(
+      '/books',
+      queryParameters: {'search': query},
+    );
+
+    return BooksModel.fromJson(response.data);
+  }
 }

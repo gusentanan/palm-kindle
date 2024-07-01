@@ -7,6 +7,7 @@ abstract class IPalmRepository {
   // Network
   Future<Either<AppFailure, List<Results>>> getAllBooks({int page});
   Future<Either<AppFailure, String>> getTextBook(String url);
+  Future<Either<AppFailure, List<Results>>> searchBooks(String query);
 
   // Local
   Future<void> addBookToDatabase(Book book);
