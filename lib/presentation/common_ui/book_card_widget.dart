@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:palmkindle/data/network_data_sources/dto/books_model.dart';
 import 'package:palmkindle/presentation/common_ui/author_chip_widget.dart';
 import 'package:palmkindle/themes/base_colors.dart';
@@ -59,11 +62,12 @@ class BookCard extends StatelessWidget {
                     height: 120,
                     data.formats!.imageJpeg!,
                     fit: BoxFit.cover,
-                    //TODO: Add proper assets to handle error image
-                    errorBuilder: (context, error, stackTrace) => Image.asset(
-                      'assets/images/empty.jpg',
+                    errorBuilder: (context, error, stackTrace) =>
+                        SvgPicture.asset(
+                      'assets/images/broken_img.svg',
                       width: 80,
                       height: 120,
+                      color: Colors.white,
                       fit: BoxFit.cover,
                     ),
                   ),

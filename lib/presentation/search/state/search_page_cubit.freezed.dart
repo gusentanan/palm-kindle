@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SearchPageState {
-  dynamic get failureOrSucceedArticles => throw _privateConstructorUsedError;
+  Option<Either<AppFailure, List<Results>>> get failureOrSucceedArticles =>
+      throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   List<Results> get books => throw _privateConstructorUsedError;
 
@@ -32,7 +33,9 @@ abstract class $SearchPageStateCopyWith<$Res> {
       _$SearchPageStateCopyWithImpl<$Res, SearchPageState>;
   @useResult
   $Res call(
-      {dynamic failureOrSucceedArticles, bool isLoading, List<Results> books});
+      {Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles,
+      bool isLoading,
+      List<Results> books});
 }
 
 /// @nodoc
@@ -48,15 +51,15 @@ class _$SearchPageStateCopyWithImpl<$Res, $Val extends SearchPageState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? failureOrSucceedArticles = freezed,
+    Object? failureOrSucceedArticles = null,
     Object? isLoading = null,
     Object? books = null,
   }) {
     return _then(_value.copyWith(
-      failureOrSucceedArticles: freezed == failureOrSucceedArticles
+      failureOrSucceedArticles: null == failureOrSucceedArticles
           ? _value.failureOrSucceedArticles
           : failureOrSucceedArticles // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as Option<Either<AppFailure, List<Results>>>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -78,7 +81,9 @@ abstract class _$$SearchPageStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {dynamic failureOrSucceedArticles, bool isLoading, List<Results> books});
+      {Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles,
+      bool isLoading,
+      List<Results> books});
 }
 
 /// @nodoc
@@ -92,14 +97,15 @@ class __$$SearchPageStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? failureOrSucceedArticles = freezed,
+    Object? failureOrSucceedArticles = null,
     Object? isLoading = null,
     Object? books = null,
   }) {
     return _then(_$SearchPageStateImpl(
-      failureOrSucceedArticles: freezed == failureOrSucceedArticles
-          ? _value.failureOrSucceedArticles!
-          : failureOrSucceedArticles,
+      failureOrSucceedArticles: null == failureOrSucceedArticles
+          ? _value.failureOrSucceedArticles
+          : failureOrSucceedArticles // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AppFailure, List<Results>>>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -123,7 +129,7 @@ class _$SearchPageStateImpl extends _SearchPageState {
         super._();
 
   @override
-  final dynamic failureOrSucceedArticles;
+  final Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles;
   @override
   final bool isLoading;
   final List<Results> _books;
@@ -144,19 +150,17 @@ class _$SearchPageStateImpl extends _SearchPageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchPageStateImpl &&
-            const DeepCollectionEquality().equals(
-                other.failureOrSucceedArticles, failureOrSucceedArticles) &&
+            (identical(
+                    other.failureOrSucceedArticles, failureOrSucceedArticles) ||
+                other.failureOrSucceedArticles == failureOrSucceedArticles) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._books, _books));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(failureOrSucceedArticles),
-      isLoading,
-      const DeepCollectionEquality().hash(_books));
+  int get hashCode => Object.hash(runtimeType, failureOrSucceedArticles,
+      isLoading, const DeepCollectionEquality().hash(_books));
 
   @JsonKey(ignore: true)
   @override
@@ -168,13 +172,14 @@ class _$SearchPageStateImpl extends _SearchPageState {
 
 abstract class _SearchPageState extends SearchPageState {
   const factory _SearchPageState(
-      {required final dynamic failureOrSucceedArticles,
+      {required final Option<Either<AppFailure, List<Results>>>
+          failureOrSucceedArticles,
       required final bool isLoading,
       required final List<Results> books}) = _$SearchPageStateImpl;
   const _SearchPageState._() : super._();
 
   @override
-  dynamic get failureOrSucceedArticles;
+  Option<Either<AppFailure, List<Results>>> get failureOrSucceedArticles;
   @override
   bool get isLoading;
   @override
