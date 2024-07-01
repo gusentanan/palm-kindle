@@ -70,10 +70,15 @@ class _HomePageState extends State<HomePage> {
             actions: [
               Padding(
                 padding: EdgeInsets.only(right: 54.0.sp),
-                child: const Icon(
-                  Icons.search_outlined,
-                  color: BaseColors.primaryColor,
-                  size: 24,
+                child: InkWell(
+                  onTap: () {
+                    AutoRouter.of(context).push(const SearchRoute());
+                  },
+                  child: const Icon(
+                    Icons.search_outlined,
+                    color: BaseColors.primaryColor,
+                    size: 24,
+                  ),
                 ),
               )
             ],
@@ -81,55 +86,52 @@ class _HomePageState extends State<HomePage> {
           body: Container(
             color: BaseColors.bgCanvas,
             child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2.0),
-                child: BlocBuilder<HomePageCubit, HomePageState>(
-                  builder: (context, state) {
-                    return state.failureOrSucceedArticles.fold(
-                      () => state.isLoading
-                          ? const Center(
+              child: BlocBuilder<HomePageCubit, HomePageState>(
+                builder: (context, state) {
+                  return state.failureOrSucceedArticles.fold(
+                    () => state.isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: BaseColors.primaryColor,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    (response) => response.fold(
+                      (failure) => Center(
+                        child: Text(failure.toString()), // Show error message
+                      ),
+                      (books) => Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              controller: _scrollController,
+                              itemCount: books.length,
+                              itemBuilder: (context, index) {
+                                final data = books[index];
+                                final bookDetail =
+                                    Mapper().mapResultsToBookDetailModel(data);
+                                return BookCard(
+                                  data: data,
+                                  onTap: () {
+                                    AutoRouter.of(context)
+                                        .push(DetailRoute(data: bookDetail));
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          if (state.isLoading)
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: CircularProgressIndicator(
                                 color: BaseColors.primaryColor,
                               ),
-                            )
-                          : const SizedBox.shrink(),
-                      (response) => response.fold(
-                        (failure) => Center(
-                          child: Text(failure.toString()), // Show error message
-                        ),
-                        (books) => Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                controller: _scrollController,
-                                itemCount: books.length,
-                                itemBuilder: (context, index) {
-                                  final data = books[index];
-                                  final bookDetail = Mapper()
-                                      .mapResultsToBookDetailModel(data);
-                                  return BookCard(
-                                    data: data,
-                                    onTap: () {
-                                      AutoRouter.of(context)
-                                          .push(DetailRoute(data: bookDetail));
-                                    },
-                                  );
-                                },
-                              ),
                             ),
-                            if (state.isLoading)
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: CircularProgressIndicator(
-                                  color: BaseColors.primaryColor,
-                                ),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

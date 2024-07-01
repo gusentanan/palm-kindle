@@ -38,6 +38,7 @@ class _DetailPageState extends State<DetailPage> {
       child: Scaffold(
         backgroundColor: BaseColors.bgCanvas,
         appBar: AppBar(
+          backgroundColor: BaseColors.bgMuted,
           title: const Text(''),
           leading: Padding(
             padding: EdgeInsets.only(left: 18.0.sp),

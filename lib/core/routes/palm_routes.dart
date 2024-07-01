@@ -9,5 +9,6 @@ class PalmRoutes extends $PalmRoutes {
     AutoRoute(page: HomeRoute.page),
     AutoRoute(page: LikesRoute.page),
     AutoRoute(page: DetailRoute.page),
+    AutoRoute(page: SearchRoute.page),
   ];
 }
