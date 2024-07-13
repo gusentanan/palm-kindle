@@ -128,7 +128,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                           const SizedBox(height: 12),
                           // Adjust as needed based on your project structure
-                          AuthorChip(authorName: widget.data.authors!),
+                          AuthorChip(authorName: widget.data.authors),
                           Text(
                             '${widget.data.birthYear} - ${widget.data.deathYear}',
                             style: const TextStyle(color: Colors.grey),
@@ -143,16 +143,23 @@ class _DetailPageState extends State<DetailPage> {
                         bottom: Radius.circular(10),
                       ),
                       child: Image.network(
-                        widget.data.imgJpeg!,
+                        widget.data.imgJpeg ?? '',
                         width: 120,
                         height: 180,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
-                          'assets/images/empty.jpg',
+                        errorBuilder: (context, error, stackTrace) => Container(
                           width: 80,
                           height: 120,
-                          fit: BoxFit.cover,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                            color: BaseColors.bgMuted,
+                          ),
+                          child: const Icon(
+                            Icons.broken_image_outlined,
+                            color: BaseColors.primaryColor,
+                          ),
                         ),
                       ),
                     ),
