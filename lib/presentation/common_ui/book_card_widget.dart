@@ -40,11 +40,11 @@ class BookCard extends StatelessWidget {
                             .copyWith(color: Colors.white),
                       ),
                       const SizedBox(height: 12),
-                      AuthorChip(authorName: data.authors!.first.name!),
+                      AuthorChip(authorName: data.authors?.first.name),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
                         child: Text(
-                          '${data.authors!.first.birthYear} \t - \t ${data.authors!.first.deathYear}',
+                          '${data.authors?.first.birthYear} \t - \t ${data.authors?.first.deathYear}',
                           style: BaseTextStyle.headlineLarge
                               .copyWith(color: BaseColors.neutralColor),
                         ),
@@ -60,15 +60,21 @@ class BookCard extends StatelessWidget {
                   child: Image.network(
                     width: 80,
                     height: 120,
-                    data.formats!.imageJpeg!,
+                    data.formats?.imageJpeg ?? '',
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        SvgPicture.asset(
-                      'assets/images/broken_img.svg',
+                    errorBuilder: (context, error, stackTrace) => Container(
                       width: 80,
                       height: 120,
-                      color: Colors.white,
-                      fit: BoxFit.cover,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                        color: BaseColors.bgMuted,
+                      ),
+                      child: const Icon(
+                        Icons.broken_image_outlined,
+                        color: BaseColors.primaryColor,
+                      ),
                     ),
                   ),
                 ),

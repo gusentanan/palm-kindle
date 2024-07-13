@@ -25,7 +25,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: setWidth(46)),
+      padding: EdgeInsets.symmetric(horizontal: setWidth(16)),
       decoration: BoxDecoration(
         color: BaseColors.bgSubtle,
         borderRadius: BorderRadius.circular(12),

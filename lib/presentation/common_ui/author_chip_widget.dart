@@ -5,7 +5,7 @@ import 'package:palmkindle/themes/base_text_style.dart';
 class AuthorChip extends StatelessWidget {
   const AuthorChip({super.key, required this.authorName});
 
-  final String authorName;
+  final String? authorName;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class AuthorChip extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                authorName,
+                authorName ?? '',
                 overflow: TextOverflow.ellipsis,
                 style:
                     BaseTextStyle.headlineLarge.copyWith(color: Colors.white),

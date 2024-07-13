@@ -9,6 +9,7 @@ import 'package:palmkindle/presentation/common_ui/book_card_widget.dart';
 import 'package:palmkindle/presentation/common_ui/search_bar_widget.dart';
 import 'package:palmkindle/presentation/search/state/search_page_cubit.dart';
 import 'package:palmkindle/themes/base_colors.dart';
+import 'package:palmkindle/themes/base_text_style.dart';
 import 'package:palmkindle/utils/mapper.dart';
 
 @RoutePage()
@@ -50,8 +51,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => _cubit,
-        child: Builder(builder: (context) {
+      create: (context) => _cubit,
+      child: Builder(
+        builder: (context) {
           return Scaffold(
             backgroundColor: BaseColors.bgCanvas,
             appBar: PreferredSize(
@@ -60,11 +62,11 @@ class _SearchPageState extends State<SearchPage> {
                 color: BaseColors.bgMuted,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 16, right: 16, bottom: 10, top: 16),
+                      left: 12, right: 12, bottom: 10, top: 16),
                   child: AppBar(
                     automaticallyImplyLeading: false,
-                    backgroundColor: BaseColors.bgMuted, // Customize as needed
-                    elevation: 0, // Optional: remove elevation
+                    backgroundColor: BaseColors.bgMuted,
+                    elevation: 0,
                     title: Column(
                       children: [
                         SearchBarWidget(
@@ -98,8 +100,14 @@ class _SearchPageState extends State<SearchPage> {
                             )
                           : const SizedBox.shrink(),
                       (response) => response.fold(
-                        (failure) => Center(
-                          child: Text(failure.toString()), // Show error message
+                        (failure) => Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            'Sorry, we couldn\'t find your books in our collection 😅',
+                            textAlign: TextAlign.center,
+                            style: BaseTextStyle.displayMedium
+                                .copyWith(color: Colors.white),
+                          ),
                         ),
                         (books) => Column(
                           children: [
@@ -129,6 +137,8 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           );
-        }));
+        },
+      ),
+    );
   }
 }

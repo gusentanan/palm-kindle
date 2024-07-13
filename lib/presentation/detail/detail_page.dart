@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +44,7 @@ class _DetailPageState extends State<DetailPage> {
           backgroundColor: BaseColors.bgMuted,
           title: const Text(''),
           leading: Padding(
-            padding: EdgeInsets.only(left: 18.0.sp),
+            padding: EdgeInsets.only(left: 32.0.w),
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios,
@@ -54,7 +57,7 @@ class _DetailPageState extends State<DetailPage> {
           ),
           actions: [
             Padding(
-              padding: EdgeInsets.only(right: 54.0.sp),
+              padding: EdgeInsets.only(right: 32.0.w),
               child: IconButton(
                 icon: Icon(
                   _cubit.state.isStoredLocally
@@ -68,11 +71,14 @@ class _DetailPageState extends State<DetailPage> {
                       await _cubit.deleteFromDatabase(widget.data.id);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            backgroundColor: BaseColors.greenColor,
                             content: Text('Book removed from favorites')),
                       );
                       setState(() {});
                     } catch (e) {
-                      print('Failed to delete a book: $e');
+                      if (kDebugMode) {
+                        print('Failed to delete a book: $e');
+                      }
                     }
                   } else {
                     final book = Book(
@@ -90,6 +96,7 @@ class _DetailPageState extends State<DetailPage> {
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
+                            backgroundColor: BaseColors.greenColor,
                             content: Text('Book added to favorites')),
                       );
                       setState(() {});
@@ -97,7 +104,9 @@ class _DetailPageState extends State<DetailPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Failed to add book')),
                       );
-                      print('Failed to add book: $e');
+                      if (kDebugMode) {
+                        print('Failed to add book: $e');
+                      }
                     }
                   }
                 },
@@ -128,7 +137,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                           const SizedBox(height: 12),
                           // Adjust as needed based on your project structure
-                          AuthorChip(authorName: widget.data.authors!),
+                          AuthorChip(authorName: widget.data.authors),
                           Text(
                             '${widget.data.birthYear} - ${widget.data.deathYear}',
                             style: const TextStyle(color: Colors.grey),
@@ -143,16 +152,23 @@ class _DetailPageState extends State<DetailPage> {
                         bottom: Radius.circular(10),
                       ),
                       child: Image.network(
-                        widget.data.imgJpeg!,
+                        widget.data.imgJpeg ?? '',
                         width: 120,
                         height: 180,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
-                          'assets/images/empty.jpg',
+                        errorBuilder: (context, error, stackTrace) => Container(
                           width: 80,
                           height: 120,
-                          fit: BoxFit.cover,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                            color: BaseColors.bgMuted,
+                          ),
+                          child: const Icon(
+                            Icons.broken_image_outlined,
+                            color: BaseColors.primaryColor,
+                          ),
                         ),
                       ),
                     ),
@@ -183,24 +199,22 @@ class _DetailPageState extends State<DetailPage> {
                   builder: (context, state) {
                     return state.failureOrSucceedArticles.fold(
                       () => state.isLoading
-                          ? Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(40.0.sp),
-                                child: Column(
-                                  children: [
-                                    const CircularProgressIndicator(
-                                      color: BaseColors.primaryColor,
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      'We are fetching the books for you. It might take a while, so please wait.',
-                                      textAlign: TextAlign.center,
-                                      style: BaseTextStyle.displayMedium
-                                          .copyWith(
-                                              color: BaseColors.neutralColor),
-                                    ),
-                                  ],
-                                ),
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 280.0.h, horizontal: 20.0.w),
+                              child: Column(
+                                children: [
+                                  const CircularProgressIndicator(
+                                    color: BaseColors.primaryColor,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    'We are fetching the books for you. It might take a while, so please wait 😉',
+                                    textAlign: TextAlign.center,
+                                    style: BaseTextStyle.displayMedium.copyWith(
+                                        color: BaseColors.neutralColor),
+                                  ),
+                                ],
                               ),
                             )
                           : const SizedBox.shrink(),
@@ -212,7 +226,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ),
                         (text) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          padding: EdgeInsets.symmetric(vertical: 20.0.w),
                           child: Text(
                             text,
                             style: BaseTextStyle.displayMedium.copyWith(

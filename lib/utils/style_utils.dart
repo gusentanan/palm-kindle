@@ -8,9 +8,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void setStatusBar(
     {Brightness brightness = Brightness.dark,
     Color color = Colors.transparent}) {
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.light,
     statusBarColor: color,
     statusBarIconBrightness: brightness,
+    systemNavigationBarColor: Colors.transparent,
   ));
 }
 
