@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +11,7 @@ import 'package:palmkindle/themes/palm_theme.dart';
 import 'package:palmkindle/utils/style_utils.dart';
 
 void main() async {
-  // ignore: deprecated_member_use
+  setStatusBar();
   BlocOverrides.runZoned(
     () => runPalmKindleApp(),
     blocObserver: PalmBlocObserver(),
@@ -31,6 +33,7 @@ class PalmKindleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final router = getIt<PalmRoutes>();
     setupScreenUtil(context);
+
     return MaterialApp.router(
       title: 'Palm Kindle',
       theme: baseTheme,
