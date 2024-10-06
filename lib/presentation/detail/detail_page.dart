@@ -1,7 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +12,8 @@ import 'package:palmkindle/presentation/common_ui/subject_chip_widget.dart';
 import 'package:palmkindle/presentation/detail/state/detail_page_cubit.dart';
 import 'package:palmkindle/themes/base_colors.dart';
 import 'package:palmkindle/themes/base_text_style.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:palmkindle/utils/helper/markdown_style.dart';
 
 @RoutePage()
 class DetailPage extends StatefulWidget {
@@ -269,10 +268,12 @@ class _DetailPageState extends State<DetailPage> {
                               shrinkWrap: true,
                               itemCount: visibleText.length,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(visibleText[index],
-                                      style: BaseTextStyle.displayMedium),
+                                return Markdown(
+                                  controller:
+                                      ScrollController(keepScrollOffset: false),
+                                  shrinkWrap: true,
+                                  data: text[index],
+                                  styleSheet: customMarkdownTheme(),
                                 );
                               },
                             ),
