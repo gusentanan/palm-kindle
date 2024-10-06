@@ -15,7 +15,7 @@ class SubjectChip extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: BaseColors.neutralColor, // Border color
+            color: BaseColors.neutralColor.withOpacity(0.3), // Border color
             width: 1.0, // Border width
           ),
         ),
@@ -31,8 +31,8 @@ class SubjectChip extends StatelessWidget {
             Expanded(
               child: Text(
                 subjectName,
-                style:
-                    BaseTextStyle.headlineLarge.copyWith(color: Colors.white),
+                style: BaseTextStyle.headlineLarge
+                    .copyWith(color: Colors.white.withOpacity(0.6)),
               ),
             ),
           ],

@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
@@ -119,7 +116,7 @@ Future<List<String>> getTextBookOnIsolate(TextBookParams data) async {
   }
 }
 
-// parameter that we need to pass to Isolate, make it as single object
+// Parameters that need to be passed to the Isolate should be wrapped in a single object for better readability and easier maintenance.
 class TextBookParams {
   final String url;
   final NetworkDataSource nds;
