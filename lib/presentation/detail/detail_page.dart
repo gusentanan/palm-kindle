@@ -81,7 +81,7 @@ class _DetailPageState extends State<DetailPage> {
                 color: BaseColors.primaryColor,
               ),
               onPressed: () {
-                context.router.maybePop();
+                context.router.maybePop(true);
               },
             ),
           ),

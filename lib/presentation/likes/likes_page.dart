@@ -20,11 +20,24 @@ class LikesPage extends StatefulWidget {
   State<StatefulWidget> createState() => _LikesPageState();
 }
 
-class _LikesPageState extends State<LikesPage> with RouteAware {
+class _LikesPageState extends State<LikesPage> {
+  late LikesPageCubit _likesPageCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _likesPageCubit = getIt<LikesPageCubit>();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<LikesPageCubit>(),
+    return BlocProvider.value(
+      value: _likesPageCubit, // Use the initialized cubit
       child: Scaffold(
         backgroundColor: BaseColors.bgCanvas,
         appBar: AppBar(
@@ -44,9 +57,10 @@ class _LikesPageState extends State<LikesPage> with RouteAware {
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const Center(
-                        child: CircularProgressIndicator(
-                      color: BaseColors.primaryColor,
-                    ));
+                      child: CircularProgressIndicator(
+                        color: BaseColors.primaryColor,
+                      ),
+                    );
                   } else if (state.likedBooks.isNotEmpty) {
                     return ListView.builder(
                       itemCount: state.likedBooks.length,
@@ -61,7 +75,7 @@ class _LikesPageState extends State<LikesPage> with RouteAware {
                             final result = await context.router
                                 .push(DetailRoute(data: bookDetail));
                             if (result == true) {
-                              setState(() {});
+                              _likesPageCubit.getAllLikedBooks();
                             }
                           },
                         );
