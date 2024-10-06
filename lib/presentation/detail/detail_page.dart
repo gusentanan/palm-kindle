@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +28,41 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   late DetailPageCubit _cubit;
+  int currentMaxChunks = 10;
+  bool isLoadingMore = false;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onScroll);
     _cubit = getIt<DetailPageCubit>();
     _cubit.init(widget.data.textPlain!, widget.data.title!);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    // Check if user scrolled to the end of the content
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        !isLoadingMore) {
+      setState(() {
+        isLoadingMore = true;
+      });
+
+      Future.delayed(const Duration(seconds: 1), () {
+        setState(() {
+          currentMaxChunks += 10;
+          isLoadingMore = false;
+        });
+      });
+    }
   }
 
   @override
@@ -115,6 +146,7 @@ class _DetailPageState extends State<DetailPage> {
           ],
         ),
         body: SingleChildScrollView(
+          controller: _scrollController,
           child: Container(
             color: BaseColors.bgCanvas,
             padding: EdgeInsets.all(48.sp),
@@ -197,6 +229,7 @@ class _DetailPageState extends State<DetailPage> {
                 const SizedBox(height: 8),
                 BlocBuilder<DetailPageCubit, DetailPageState>(
                   builder: (context, state) {
+                    bool isLoadingMore = false;
                     return state.failureOrSucceedArticles.fold(
                       () => state.isLoading
                           ? Padding(
@@ -219,26 +252,49 @@ class _DetailPageState extends State<DetailPage> {
                             )
                           : const SizedBox.shrink(),
                       (response) => response.fold(
-                        (failure) => Center(
-                          child: Text(
-                            failure.toString(),
-                            style: const TextStyle(color: Colors.red),
-                          ),
-                        ),
-                        (text) => Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20.0.w),
-                          child: Text(
-                            text,
-                            style: BaseTextStyle.displayMedium.copyWith(
-                              fontWeight: FontWeight.w100,
+                          (failure) => Center(
+                                child: Text(
+                                  failure.toString(),
+                                  style: const TextStyle(color: Colors.red),
+                                ),
+                              ), (text) {
+                        final totalChunks = text.length;
+                        final visibleText =
+                            text.take(currentMaxChunks).toList();
+
+                        return Column(
+                          children: [
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: visibleText.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(visibleText[index],
+                                      style: BaseTextStyle.displayMedium),
+                                );
+                              },
                             ),
-                          ),
-                        ),
-                      ),
+                            if (!isLoadingMore &&
+                                currentMaxChunks < totalChunks)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  'Scroll to load more...',
+                                  style: BaseTextStyle.displayLarge.copyWith(
+                                    color: BaseColors.pmaDim,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      }),
                     );
                   },
                 ),
-                const SizedBox(height: 48), // Adjust spacing as needed
+                const SizedBox(height: 48),
               ],
             ),
           ),

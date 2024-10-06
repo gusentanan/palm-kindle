@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DetailPageState {
-  Option<Either<AppFailure, String>> get failureOrSucceedArticles =>
+  Option<Either<AppFailure, List<String>>> get failureOrSucceedArticles =>
       throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isStoredLocally => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $DetailPageStateCopyWith<$Res> {
       _$DetailPageStateCopyWithImpl<$Res, DetailPageState>;
   @useResult
   $Res call(
-      {Option<Either<AppFailure, String>> failureOrSucceedArticles,
+      {Option<Either<AppFailure, List<String>>> failureOrSucceedArticles,
       bool isLoading,
       bool isStoredLocally});
 }
@@ -59,7 +59,7 @@ class _$DetailPageStateCopyWithImpl<$Res, $Val extends DetailPageState>
       failureOrSucceedArticles: null == failureOrSucceedArticles
           ? _value.failureOrSucceedArticles
           : failureOrSucceedArticles // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AppFailure, String>>,
+              as Option<Either<AppFailure, List<String>>>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$DetailPageStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Option<Either<AppFailure, String>> failureOrSucceedArticles,
+      {Option<Either<AppFailure, List<String>>> failureOrSucceedArticles,
       bool isLoading,
       bool isStoredLocally});
 }
@@ -105,7 +105,7 @@ class __$$DetailPageStateImplCopyWithImpl<$Res>
       failureOrSucceedArticles: null == failureOrSucceedArticles
           ? _value.failureOrSucceedArticles
           : failureOrSucceedArticles // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AppFailure, String>>,
+              as Option<Either<AppFailure, List<String>>>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -128,7 +128,7 @@ class _$DetailPageStateImpl extends _DetailPageState {
       : super._();
 
   @override
-  final Option<Either<AppFailure, String>> failureOrSucceedArticles;
+  final Option<Either<AppFailure, List<String>>> failureOrSucceedArticles;
   @override
   final bool isLoading;
   @override
@@ -167,14 +167,14 @@ class _$DetailPageStateImpl extends _DetailPageState {
 
 abstract class _DetailPageState extends DetailPageState {
   const factory _DetailPageState(
-      {required final Option<Either<AppFailure, String>>
+      {required final Option<Either<AppFailure, List<String>>>
           failureOrSucceedArticles,
       required final bool isLoading,
       required final bool isStoredLocally}) = _$DetailPageStateImpl;
   const _DetailPageState._() : super._();
 
   @override
-  Option<Either<AppFailure, String>> get failureOrSucceedArticles;
+  Option<Either<AppFailure, List<String>>> get failureOrSucceedArticles;
   @override
   bool get isLoading;
   @override
