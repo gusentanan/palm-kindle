@@ -272,6 +272,7 @@ class _DetailPageState extends State<DetailPage> {
                                   controller:
                                       ScrollController(keepScrollOffset: false),
                                   shrinkWrap: true,
+                                  padding: const EdgeInsets.all(0),
                                   data: text[index],
                                   styleSheet: customMarkdownTheme(),
                                 );
