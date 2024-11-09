@@ -21,6 +21,7 @@ mixin _$HomePageState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Results> get books => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
+  bool get hasReachedMax => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $HomePageStateCopyWith<$Res> {
       {Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles,
       bool isLoading,
       List<Results> books,
-      int currentPage});
+      int currentPage,
+      bool hasReachedMax});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? isLoading = null,
     Object? books = null,
     Object? currentPage = null,
+    Object? hasReachedMax = null,
   }) {
     return _then(_value.copyWith(
       failureOrSucceedArticles: null == failureOrSucceedArticles
@@ -75,6 +78,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
+      hasReachedMax: null == hasReachedMax
+          ? _value.hasReachedMax
+          : hasReachedMax // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -91,7 +98,8 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
       {Option<Either<AppFailure, List<Results>>> failureOrSucceedArticles,
       bool isLoading,
       List<Results> books,
-      int currentPage});
+      int currentPage,
+      bool hasReachedMax});
 }
 
 /// @nodoc
@@ -109,6 +117,7 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? books = null,
     Object? currentPage = null,
+    Object? hasReachedMax = null,
   }) {
     return _then(_$HomePageStateImpl(
       failureOrSucceedArticles: null == failureOrSucceedArticles
@@ -127,18 +136,23 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
+      hasReachedMax: null == hasReachedMax
+          ? _value.hasReachedMax
+          : hasReachedMax // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 
-class _$HomePageStateImpl extends _HomePageState {
+class _$HomePageStateImpl extends _HomePageState with DiagnosticableTreeMixin {
   const _$HomePageStateImpl(
       {required this.failureOrSucceedArticles,
       required this.isLoading,
       required final List<Results> books,
-      required this.currentPage})
+      required this.currentPage,
+      required this.hasReachedMax})
       : _books = books,
         super._();
 
@@ -156,10 +170,25 @@ class _$HomePageStateImpl extends _HomePageState {
 
   @override
   final int currentPage;
+  @override
+  final bool hasReachedMax;
 
   @override
-  String toString() {
-    return 'HomePageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading, books: $books, currentPage: $currentPage)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'HomePageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading, books: $books, currentPage: $currentPage, hasReachedMax: $hasReachedMax)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomePageState'))
+      ..add(DiagnosticsProperty(
+          'failureOrSucceedArticles', failureOrSucceedArticles))
+      ..add(DiagnosticsProperty('isLoading', isLoading))
+      ..add(DiagnosticsProperty('books', books))
+      ..add(DiagnosticsProperty('currentPage', currentPage))
+      ..add(DiagnosticsProperty('hasReachedMax', hasReachedMax));
   }
 
   @override
@@ -174,12 +203,19 @@ class _$HomePageStateImpl extends _HomePageState {
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(other._books, _books) &&
             (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage));
+                other.currentPage == currentPage) &&
+            (identical(other.hasReachedMax, hasReachedMax) ||
+                other.hasReachedMax == hasReachedMax));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, failureOrSucceedArticles,
-      isLoading, const DeepCollectionEquality().hash(_books), currentPage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      failureOrSucceedArticles,
+      isLoading,
+      const DeepCollectionEquality().hash(_books),
+      currentPage,
+      hasReachedMax);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +230,8 @@ abstract class _HomePageState extends HomePageState {
           failureOrSucceedArticles,
       required final bool isLoading,
       required final List<Results> books,
-      required final int currentPage}) = _$HomePageStateImpl;
+      required final int currentPage,
+      required final bool hasReachedMax}) = _$HomePageStateImpl;
   const _HomePageState._() : super._();
 
   @override
@@ -205,6 +242,8 @@ abstract class _HomePageState extends HomePageState {
   List<Results> get books;
   @override
   int get currentPage;
+  @override
+  bool get hasReachedMax;
   @override
   @JsonKey(ignore: true)
   _$$HomePageStateImplCopyWith<_$HomePageStateImpl> get copyWith =>

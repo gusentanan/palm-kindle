@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late ScrollController _scrollController;
+  final _cubit = getIt<HomePageCubit>();
 
   @override
   void initState() {
@@ -30,23 +31,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
     super.dispose();
   }
 
   void _scrollListener() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent * 0.9 &&
+        !_cubit.state.isLoading) {
       // Fetch next page when reaching the end of the list
-      getIt<HomePageCubit>().loadNextPage();
+      print('trigger pagination');
+      _cubit.loadNextPage();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<HomePageCubit>(),
+      create: (context) => _cubit,
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -105,11 +107,23 @@ class _HomePageState extends State<HomePage> {
                           Expanded(
                             child: ListView.builder(
                               controller: _scrollController,
-                              itemCount: books.length,
+                              itemCount: state.books.length +
+                                  (state.isLoading ? 1 : 0),
                               itemBuilder: (context, index) {
-                                final data = books[index];
+                                if (index == state.books.length) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: BaseColors.primaryColor),
+                                    ),
+                                  );
+                                }
+
+                                final data = state.books[index];
                                 final bookDetail =
                                     Mapper().mapResultsToBookDetailModel(data);
+
                                 return BookCard(
                                   data: data,
                                   onTap: () {
@@ -120,13 +134,6 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
-                          if (state.isLoading)
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: CircularProgressIndicator(
-                                color: BaseColors.primaryColor,
-                              ),
-                            ),
                         ],
                       ),
                     ),

@@ -5,7 +5,7 @@ class DetailPageState with _$DetailPageState {
   const DetailPageState._();
 
   const factory DetailPageState({
-    required Option<Either<AppFailure, String>> failureOrSucceedArticles,
+    required Option<Either<AppFailure, List<String>>> failureOrSucceedArticles,
     required bool isLoading,
     required bool isStoredLocally,
   }) = _DetailPageState;

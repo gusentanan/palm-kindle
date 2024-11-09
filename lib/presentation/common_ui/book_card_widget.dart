@@ -40,11 +40,16 @@ class BookCard extends StatelessWidget {
                             .copyWith(color: Colors.white),
                       ),
                       const SizedBox(height: 12),
-                      AuthorChip(authorName: data.authors?.first.name),
+                      AuthorChip(
+                          authorName: data.authors.isEmpty
+                              ? 'No writer'
+                              : data.authors.first.name),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
                         child: Text(
-                          '${data.authors?.first.birthYear} \t - \t ${data.authors?.first.deathYear}',
+                          data.authors.isEmpty
+                              ? 'No records'
+                              : '${data.authors.first.birthYear} \t - \t ${data.authors.first.deathYear}',
                           style: BaseTextStyle.headlineLarge
                               .copyWith(color: BaseColors.neutralColor),
                         ),

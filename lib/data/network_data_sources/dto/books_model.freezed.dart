@@ -222,7 +222,7 @@ Results _$ResultsFromJson(Map<String, dynamic> json) {
 mixin _$Results {
   int get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
-  List<Authors>? get authors => throw _privateConstructorUsedError;
+  List<Authors> get authors => throw _privateConstructorUsedError;
   List<String>? get subjects => throw _privateConstructorUsedError;
   List<String>? get bookshelves => throw _privateConstructorUsedError;
   List<String>? get languages => throw _privateConstructorUsedError;
@@ -244,7 +244,7 @@ abstract class $ResultsCopyWith<$Res> {
   $Res call(
       {int id,
       String? title,
-      List<Authors>? authors,
+      List<Authors> authors,
       List<String>? subjects,
       List<String>? bookshelves,
       List<String>? languages,
@@ -271,7 +271,7 @@ class _$ResultsCopyWithImpl<$Res, $Val extends Results>
   $Res call({
     Object? id = null,
     Object? title = freezed,
-    Object? authors = freezed,
+    Object? authors = null,
     Object? subjects = freezed,
     Object? bookshelves = freezed,
     Object? languages = freezed,
@@ -289,10 +289,10 @@ class _$ResultsCopyWithImpl<$Res, $Val extends Results>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      authors: freezed == authors
+      authors: null == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
-              as List<Authors>?,
+              as List<Authors>,
       subjects: freezed == subjects
           ? _value.subjects
           : subjects // ignore: cast_nullable_to_non_nullable
@@ -347,7 +347,7 @@ abstract class _$$ResultsImplCopyWith<$Res> implements $ResultsCopyWith<$Res> {
   $Res call(
       {int id,
       String? title,
-      List<Authors>? authors,
+      List<Authors> authors,
       List<String>? subjects,
       List<String>? bookshelves,
       List<String>? languages,
@@ -373,7 +373,7 @@ class __$$ResultsImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = freezed,
-    Object? authors = freezed,
+    Object? authors = null,
     Object? subjects = freezed,
     Object? bookshelves = freezed,
     Object? languages = freezed,
@@ -391,10 +391,10 @@ class __$$ResultsImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      authors: freezed == authors
+      authors: null == authors
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
-              as List<Authors>?,
+              as List<Authors>,
       subjects: freezed == subjects
           ? _value._subjects
           : subjects // ignore: cast_nullable_to_non_nullable
@@ -433,7 +433,7 @@ class _$ResultsImpl implements _Results {
   const _$ResultsImpl(
       {required this.id,
       required this.title,
-      required final List<Authors>? authors,
+      final List<Authors> authors = const [],
       required final List<String>? subjects,
       required final List<String>? bookshelves,
       required final List<String>? languages,
@@ -453,14 +453,13 @@ class _$ResultsImpl implements _Results {
   final int id;
   @override
   final String? title;
-  final List<Authors>? _authors;
+  final List<Authors> _authors;
   @override
-  List<Authors>? get authors {
-    final value = _authors;
-    if (value == null) return null;
+  @JsonKey()
+  List<Authors> get authors {
     if (_authors is EqualUnmodifiableListView) return _authors;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_authors);
   }
 
   final List<String>? _subjects;
@@ -562,7 +561,7 @@ abstract class _Results implements Results {
   const factory _Results(
       {required final int id,
       required final String? title,
-      required final List<Authors>? authors,
+      final List<Authors> authors,
       required final List<String>? subjects,
       required final List<String>? bookshelves,
       required final List<String>? languages,
@@ -578,7 +577,7 @@ abstract class _Results implements Results {
   @override
   String? get title;
   @override
-  List<Authors>? get authors;
+  List<Authors> get authors;
   @override
   List<String>? get subjects;
   @override

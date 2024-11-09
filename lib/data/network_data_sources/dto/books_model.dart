@@ -21,7 +21,7 @@ class Results with _$Results {
   const factory Results({
     required int id,
     required String? title,
-    required List<Authors>? authors,
+    @Default([]) List<Authors> authors,
     required List<String>? subjects,
     required List<String>? bookshelves,
     required List<String>? languages,
