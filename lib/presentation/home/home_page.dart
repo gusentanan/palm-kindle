@@ -20,11 +20,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late ScrollController _scrollController;
+  final _cubit = getIt<HomePageCubit>();
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
   }
 
   @override
@@ -33,19 +35,20 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // void _scrollListener() {
-  //   if (_scrollController.position.pixels >=
-  //       _scrollController.position.maxScrollExtent - 200) {
-  //     // Fetch next page when reaching the end of the list
-  //     print('trigger pagination');
-  //     getIt<HomePageCubit>().loadNextPage();
-  //   }
-  // }
+  void _scrollListener() {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent * 0.9 &&
+        !_cubit.state.isLoading) {
+      // Fetch next page when reaching the end of the list
+      print('trigger pagination');
+      _cubit.loadNextPage();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<HomePageCubit>(),
+      create: (context) => _cubit,
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -104,11 +107,20 @@ class _HomePageState extends State<HomePage> {
                           Expanded(
                             child: ListView.builder(
                               controller: _scrollController,
-                              itemCount: books.length,
+                              itemCount: state.books.length +
+                                  (state.isLoading ? 1 : 0),
                               itemBuilder: (context, index) {
-                                final data = books[index];
+                                if (index == state.books.length) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                          color: BaseColors.primaryColor),
+                                    ),
+                                  );
+                                }
 
-                                print('render ${books.length}');
+                                final data = state.books[index];
                                 final bookDetail =
                                     Mapper().mapResultsToBookDetailModel(data);
 

@@ -13,41 +13,59 @@ part 'home_page_state.dart';
 @injectable
 class HomePageCubit extends Cubit<HomePageState> {
   final IPalmRepository _palmRepository;
+  static const int itemsPerPage = 32; // Since each page returns 32 items
 
   HomePageCubit(this._palmRepository) : super(HomePageState.initial()) {
-    getAllBooks(page: 1); // Fetch initial page
+    getAllBooks(page: 1);
   }
-
   void getAllBooks({int page = 1}) async {
     emit(state.unmodified.copyWith(isLoading: true));
+
     final response = await _palmRepository.getAllBooks(page: page);
 
-    if (kDebugMode) {
-      // Check if response is a Right (successful result)
-      response.fold(
-        (failure) => print('Error: $failure'),
-        (books) {
-          print('Response contains ${books.length} books:');
-          // Print each book individually
-          for (var i = 0; i < books.length; i++) {
-            final book = books[i];
-            print(
-                'Book $i - ID: ${book.id}, Title: ${book.title}, Authors: ${book.authors?.map((a) => a.name).join(', ')}');
-          }
-        },
-      );
-    }
+    response.fold(
+      (failure) {
+        if (kDebugMode) print('Error: $failure');
+        emit(state.unmodified.copyWith(isLoading: false));
+      },
+      (newBooks) {
+        if (kDebugMode) {
+          print('Fetched ${newBooks.length} new books');
+        }
 
-    emit(state.unmodified.copyWith(
-      isLoading: false,
-      failureOrSucceedArticles: optionOf(response),
-      books: response.fold((_) => [], (books) => books),
-      currentPage: page,
-    ));
+        final updatedBooks = List<Results>.from(state.books)..addAll(newBooks);
+        if (kDebugMode) {
+          print('${updatedBooks.length} total books');
+        }
+
+        emit(state.unmodified.copyWith(
+          isLoading: false,
+          failureOrSucceedArticles: optionOf(response),
+          books: updatedBooks,
+          currentPage: page,
+          hasReachedMax: newBooks.isEmpty,
+        ));
+      },
+    );
   }
 
-  void loadNextPage() {
-    final nextPage = state.currentPage + 1;
-    getAllBooks(page: nextPage);
+  void loadNextPage() async {
+    if (state.isLoading) return; // Avoid multiple triggers
+    emit(state.copyWith(isLoading: true));
+
+    final response =
+        await _palmRepository.getAllBooks(page: state.currentPage + 1);
+
+    response.fold(
+      (failure) => emit(state.copyWith(isLoading: false)), // Handle failure
+      (newBooks) {
+        final updatedBooks = List.of(state.books)..addAll(newBooks);
+        emit(state.copyWith(
+          books: updatedBooks,
+          currentPage: state.currentPage + 1,
+          isLoading: false,
+        ));
+      },
+    );
   }
 }

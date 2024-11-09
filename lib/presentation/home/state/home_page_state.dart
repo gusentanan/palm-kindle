@@ -9,14 +9,15 @@ class HomePageState with _$HomePageState {
     required bool isLoading,
     required List<Results> books,
     required int currentPage,
+    required bool hasReachedMax,
   }) = _HomePageState;
 
   factory HomePageState.initial() => HomePageState(
-        failureOrSucceedArticles: none(),
-        isLoading: false,
-        books: [],
-        currentPage: 0,
-      );
+      failureOrSucceedArticles: none(),
+      isLoading: false,
+      books: [],
+      currentPage: 0,
+      hasReachedMax: false);
 
   HomePageState get unmodified => copyWith(
         isLoading: false,
