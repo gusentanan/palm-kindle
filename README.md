@@ -1,9 +1,12 @@
 # PalmKindle 
 <table>
   <tr>
-    <p> 
-     PalmKindle the perfect app for all your ebook reading needs! Just like Kindle, its offers reading experience, but with access to thousands of free ebooks thanks to the Gutendex API. You can easily find and read books you love, save your favorites, and search by title or author—all in one user-friendly app.
-    </p> 
+    <td>
+        <img src="https://raw.githubusercontent.com/gusentanan/palm-kindle/refs/heads/main/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" height=100 align="left"> 
+        <p> 
+         PalmKindle the perfect app for all your ebook reading needs! Just like Kindle, its offers reading experience, but with access to thousands of free ebooks thanks to the Gutendex API. You can easily find and read books you love, save your favorites, and search by title or author—all in one user-friendly app.
+        </p>
+    </td>
   </tr>
 </table>
 <table>
