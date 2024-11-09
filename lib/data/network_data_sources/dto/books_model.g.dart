@@ -29,8 +29,9 @@ _$ResultsImpl _$$ResultsImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       title: json['title'] as String?,
       authors: (json['authors'] as List<dynamic>?)
-          ?.map((e) => Authors.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => Authors.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       subjects: (json['subjects'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

@@ -17,8 +17,8 @@ class DetailPageCubit extends Cubit<DetailPageState> {
 
   DetailPageCubit(this._palmRepository) : super(DetailPageState.initial());
 
-  void init(String url, String title) {
-    checkIfStoredLocally(title);
+  void init(String url, String title) async {
+    await checkIfStoredLocally(title);
     getTextBook(url);
   }
 
@@ -49,7 +49,7 @@ class DetailPageCubit extends Cubit<DetailPageState> {
     }
   }
 
-  void checkIfStoredLocally(String title) async {
+  Future<void> checkIfStoredLocally(String title) async {
     try {
       final isStored = await _palmRepository.isBookStoredLocally(title);
       emit(state.copyWith(isStoredLocally: isStored));

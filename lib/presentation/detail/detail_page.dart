@@ -168,9 +168,14 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                           const SizedBox(height: 12),
                           // Adjust as needed based on your project structure
-                          AuthorChip(authorName: widget.data.authors),
+                          AuthorChip(
+                              authorName: widget.data.authors == ''
+                                  ? 'No writer'
+                                  : widget.data.authors),
                           Text(
-                            '${widget.data.birthYear} - ${widget.data.deathYear}',
+                            widget.data.authors == ''
+                                ? 'No records'
+                                : '${widget.data.birthYear} - ${widget.data.deathYear}',
                             style: const TextStyle(color: Colors.grey),
                           ),
                         ],
@@ -281,8 +286,7 @@ class _DetailPageState extends State<DetailPage> {
                             if (!isLoadingMore &&
                                 currentMaxChunks < totalChunks)
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                padding: const EdgeInsets.only(top: 16.0),
                                 child: Text(
                                   'Scroll to load more...',
                                   style: BaseTextStyle.displayLarge.copyWith(

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -20,6 +21,23 @@ class HomePageCubit extends Cubit<HomePageState> {
   void getAllBooks({int page = 1}) async {
     emit(state.unmodified.copyWith(isLoading: true));
     final response = await _palmRepository.getAllBooks(page: page);
+
+    if (kDebugMode) {
+      // Check if response is a Right (successful result)
+      response.fold(
+        (failure) => print('Error: $failure'),
+        (books) {
+          print('Response contains ${books.length} books:');
+          // Print each book individually
+          for (var i = 0; i < books.length; i++) {
+            final book = books[i];
+            print(
+                'Book $i - ID: ${book.id}, Title: ${book.title}, Authors: ${book.authors?.map((a) => a.name).join(', ')}');
+          }
+        },
+      );
+    }
+
     emit(state.unmodified.copyWith(
       isLoading: false,
       failureOrSucceedArticles: optionOf(response),

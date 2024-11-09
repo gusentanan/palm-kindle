@@ -133,7 +133,7 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$HomePageStateImpl extends _HomePageState {
+class _$HomePageStateImpl extends _HomePageState with DiagnosticableTreeMixin {
   const _$HomePageStateImpl(
       {required this.failureOrSucceedArticles,
       required this.isLoading,
@@ -158,8 +158,20 @@ class _$HomePageStateImpl extends _HomePageState {
   final int currentPage;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'HomePageState(failureOrSucceedArticles: $failureOrSucceedArticles, isLoading: $isLoading, books: $books, currentPage: $currentPage)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'HomePageState'))
+      ..add(DiagnosticsProperty(
+          'failureOrSucceedArticles', failureOrSucceedArticles))
+      ..add(DiagnosticsProperty('isLoading', isLoading))
+      ..add(DiagnosticsProperty('books', books))
+      ..add(DiagnosticsProperty('currentPage', currentPage));
   }
 
   @override

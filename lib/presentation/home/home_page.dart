@@ -25,23 +25,22 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
     super.dispose();
   }
 
-  void _scrollListener() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      // Fetch next page when reaching the end of the list
-      getIt<HomePageCubit>().loadNextPage();
-    }
-  }
+  // void _scrollListener() {
+  //   if (_scrollController.position.pixels >=
+  //       _scrollController.position.maxScrollExtent - 200) {
+  //     // Fetch next page when reaching the end of the list
+  //     print('trigger pagination');
+  //     getIt<HomePageCubit>().loadNextPage();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,8 +107,11 @@ class _HomePageState extends State<HomePage> {
                               itemCount: books.length,
                               itemBuilder: (context, index) {
                                 final data = books[index];
+
+                                print('render ${books.length}');
                                 final bookDetail =
                                     Mapper().mapResultsToBookDetailModel(data);
+
                                 return BookCard(
                                   data: data,
                                   onTap: () {
@@ -120,13 +122,6 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
-                          if (state.isLoading)
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: CircularProgressIndicator(
-                                color: BaseColors.primaryColor,
-                              ),
-                            ),
                         ],
                       ),
                     ),
